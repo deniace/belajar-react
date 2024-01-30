@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Counter</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function MainBody() {
+        let [angka, setAngka] = React.useState(0);
+
+        function handleClickPlus() {
+          setAngka(angka + 1);
+        }
+
+        function handleClickMinus() {
+          setAngka(angka - 1);
+        }
+
+        function handleClickReset() {
+          setAngka((angka = 0));
+        }
+
+        function Paragraf({ angka }) {
+          return <strong>{angka}</strong>;
+        }
+
+        function Button({ text, handler, dis }) {
+          return (
+            <button
+              type="button"
+              Style="margin:10px"
+              onClick={handler}
+              disabled={dis}
+            >
+              {text}
+            </button>
+          );
+        }
+
+        let disabledMinus = "";
+        // max 10, min 0
+        let [angkaMax10, setAngkaMax10] = React.useState(0);
+
+        function handleClickPlusMax10() {
+          if (angkaMax10 < 10) {
+            angkaMax10 = angkaMax10 + 1;
+          } else {
+            angkaMax10 = "Done";
+          }
+          setAngkaMax10(angkaMax10);
+        }
+
+        function handleClickMinusMin0() {
+          if (angkaMax10 < 1) {
+            angkaMax10 = "Done";
+            // disabledMinus = "disabled";
+          } else {
+            angkaMax10 = angkaMax10 - 1;
+          }
+
+          setAngkaMax10(angkaMax10);
+        }
+
+        function handleClickResetAngkaMax10() {
+          setAngkaMax10((angka = 0));
+        }
+
+        return (
+          <>
+            <div>
+              <p>Counter 1</p>
+              <Button handler={handleClickMinus} text="-" />
+              <Paragraf angka={angka} />
+              <Button handler={handleClickPlus} text="+" />
+              <br />
+              <Button handler={handleClickReset} text="Reset" />
+              <br />
+
+              <p>Counter 2</p>
+              <Button
+                handler={handleClickMinusMin0}
+                text="-"
+                dis={angkaMax10 == "Done" ? "disabled" : ""}
+              />
+              <Paragraf angka={angkaMax10} />
+              <Button
+                handler={handleClickPlusMax10}
+                text="+"
+                dis={angkaMax10 == "Done" ? "disabled" : ""}
+              />
+              <br />
+              <Button
+                handler={handleClickResetAngkaMax10}
+                text="reset"
+                dis={angkaMax10 != "Done" ? "disabled" : ""}
+              />
+            </div>
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+
+      root.render(<MainBody />);
+    </script>
+  </body>
+</html>

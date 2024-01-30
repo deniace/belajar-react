@@ -25,24 +25,41 @@
         return <p>ini P</p>;
       }
 
-      function CobaProps(params) {
-        return (
-          <h1>
-            {" "}
-            Halo {params.nama} {params.asu}
-          </h1>
-        );
+      function CobaProps({ nama }) {
+        return <h1> Halo {nama ? nama : "deni ace"}</h1>;
       }
 
       function MainBody() {
+        const students = ["Tingki Wingki", "Dipsi", "Lala", "PO"];
+        const [like, setLike] = React.useState(0);
+
+        function handleClick() {
+          setLike(like + 1);
+        }
+
+        function handleDisClick() {
+          setLike(like - 1);
+        }
+
         return (
-          <div>
-            <MyApp />
-            <CobaComponent />
-            <CobaComponent2 />
-            <CobaProps nama="deni" />
-            <CobaProps nama="ace" asu="kau" />
-          </div>
+          <>
+            <div>
+              <MyApp />
+              <CobaComponent />
+              <CobaComponent2 />
+              <CobaProps />
+              <CobaProps nama="Ini adalah param nama" />
+            </div>
+
+            <ul>
+              {students.map((student) => (
+                <li key={student}>{student}</li>
+              ))}
+            </ul>
+
+            <button onClick={handleClick}> Like ({like})</button>
+            <button onClick={handleDisClick}> Dislike ({like})</button>
+          </>
         );
       }
 
