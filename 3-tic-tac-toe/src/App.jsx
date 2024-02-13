@@ -1,6 +1,6 @@
 import { useState } from "react";
+import Proptypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
 function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
@@ -8,6 +8,11 @@ function Square({ value, onSquareClick }) {
     </button>
   );
 }
+
+Square.propTypes = {
+  value: Proptypes.string,
+  onSquareClick: Proptypes.object,
+};
 
 function Board({ xIsNext, squares, onPlay }) {
   // const [squares, setSquares] = useState(Array(9).fill(null));
@@ -58,6 +63,12 @@ function Board({ xIsNext, squares, onPlay }) {
     </>
   );
 }
+
+Board.propTypes = {
+  xIsNext: Proptypes.boolean,
+  squares: Proptypes.array,
+  onPlay: Proptypes.object,
+};
 
 export default function Game() {
   // const [xIsNext, setXIsNext] = useState(true);
